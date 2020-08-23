@@ -88,6 +88,8 @@ import com.android.systemui.statusbar.policy.Clock;
 import com.android.systemui.statusbar.policy.DateView;
 import com.android.systemui.statusbar.policy.NextAlarmController;
 import com.android.systemui.statusbar.policy.ZenModeController;
+import com.android.systemui.tuner.TunerService;
+import com.android.systemui.tuner.TunerService.Tunable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -667,7 +669,6 @@ public class QuickStatusBarHeader extends RelativeLayout implements
                 mQuickQsBrightness.setVisibility(VISIBLE);
             }
         }
-        updateSystemInfoText();
     }
 
     public void disable(int state1, int state2, boolean animate) {

@@ -6929,6 +6929,12 @@ public final class Settings {
         private static final Validator CENTER_NOTIFICATION_HEADERS_VALIDATOR = BOOLEAN_VALIDATOR;
 
         /**
+        * Music Card in VolumePanel
+        * @hide
+        */
+        public static final String MUSIC_VOLUME_PANEL_DIALOG = "music_volume_panel_dialog";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *

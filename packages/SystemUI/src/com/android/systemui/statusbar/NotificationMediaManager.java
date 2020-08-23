@@ -551,6 +551,14 @@ public class NotificationMediaManager implements Dumpable {
         return mNowPlayingTrack;
     }
 
+    public boolean getPlaybackStateIsEqual(@PlaybackState.State int state) {
+      if (mMediaController != null) {
+        return state == mMediaController.getPlaybackState().getState();
+      } else {
+        return false;
+      }
+    }
+
     @Override
     public void dump(FileDescriptor fd, PrintWriter pw, String[] args) {
         pw.print("    mMediaSessionManager=");
@@ -996,6 +1004,53 @@ public class NotificationMediaManager implements Dumpable {
                 if (PlaybackState.STATE_PLAYING ==
                         getMediaControllerPlaybackState(aController)) {
                     triggerKeyEvents(key, aController);
+                    break;
+                }
+            }
+        }
+    }
+    public void skipTrackNext() {
+        if (mMediaSessionManager != null) {
+            final List<MediaController> sessions
+                    = mMediaSessionManager.getActiveSessionsForUser(
+                    null, UserHandle.USER_ALL);
+            for (MediaController aController : sessions) {
+                if (PlaybackState.STATE_PLAYING ==
+                        getMediaControllerPlaybackState(aController)) {
+                    aController.getTransportControls().skipToNext();
+                    break;
+                }
+            }
+        }
+    }
+
+    public void skipTrackPrevious() {
+        if (mMediaSessionManager != null) {
+            final List<MediaController> sessions
+                    = mMediaSessionManager.getActiveSessionsForUser(
+                    null, UserHandle.USER_ALL);
+            for (MediaController aController : sessions) {
+                if (PlaybackState.STATE_PLAYING ==
+                        getMediaControllerPlaybackState(aController)) {
+                    aController.getTransportControls().skipToPrevious();
+                    break;
+                }
+            }
+        }
+    }
+
+    public void playPauseTrack() {
+        if (mMediaSessionManager != null) {
+            final List<MediaController> sessions
+                    = mMediaSessionManager.getActiveSessionsForUser(
+                    null, UserHandle.USER_ALL);
+            for (MediaController aController : sessions) {
+                if (PlaybackState.STATE_PLAYING ==
+                        getMediaControllerPlaybackState(aController)) {
+                    aController.getTransportControls().pause();
+                    break;
+                } else {
+                    aController.getTransportControls().play();
                     break;
                 }
             }
